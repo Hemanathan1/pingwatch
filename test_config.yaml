@@ -1,0 +1,115 @@
+# NetTest Configuration File
+# Define all targets and test parameters here.
+# Tests are data-driven — add new cases without touching Python code.
+
+suites:
+
+  # ── TCP Connectivity Tests ─────────────────────────────────────────────────
+  tcp:
+    tests:
+      - name: "Google DNS reachable on port 53"
+        host: "8.8.8.8"
+        port: 53
+        timeout: 3
+
+      - name: "Cloudflare DNS reachable on port 53"
+        host: "1.1.1.1"
+        port: 53
+        timeout: 3
+
+      - name: "HTTP port open on example.com"
+        host: "example.com"
+        port: 80
+        timeout: 5
+
+      - name: "HTTPS port open on example.com"
+        host: "example.com"
+        port: 443
+        timeout: 5
+
+      - name: "Should FAIL — unreachable host"
+        host: "192.0.2.1"        # TEST-NET, guaranteed unreachable
+        port: 80
+        timeout: 2
+        expect_fail: true        # documents that failure is the expected outcome
+
+  # ── HTTP / HTTPS Behaviour Tests ───────────────────────────────────────────
+  http:
+    tests:
+      - name: "example.com returns HTTP 200"
+        url: "http://example.com"
+        expected_status: 200
+        timeout: 10
+
+      - name: "example.com HTTPS returns HTTP 200"
+        url: "https://example.com"
+        expected_status: 200
+        timeout: 10
+
+      - name: "Response contains expected keyword"
+        url: "https://example.com"
+        expected_status: 200
+        expected_body_contains: "Example Domain"
+        timeout: 10
+
+      - name: "httpbin GET returns 200"
+        url: "https://httpbin.org/get"
+        expected_status: 200
+        timeout: 10
+
+      - name: "httpbin returns valid JSON"
+        url: "https://httpbin.org/json"
+        expected_status: 200
+        expected_content_type: "application/json"
+        timeout: 10
+
+      - name: "Non-existent path returns 404"
+        url: "https://httpbin.org/status/404"
+        expected_status: 404
+        timeout: 10
+
+  # ── Security Header / Config Tests ────────────────────────────────────────
+  security:
+    tests:
+      - name: "example.com HTTPS is valid (no SSL error)"
+        url: "https://example.com"
+        check: ssl_valid
+
+      - name: "HTTP to HTTPS redirect enforced on httpbin"
+        host: "httpbin.org"
+        check: https_redirect
+
+      - name: "HSTS header present on example.com"
+        url: "https://example.com"
+        check: hsts_header
+
+      - name: "X-Content-Type-Options header check on httpbin"
+        url: "https://httpbin.org"
+        check: x_content_type
+
+      - name: "Open port scan — common ports on scanme.nmap.org"
+        host: "scanme.nmap.org"
+        ports: [22, 80, 443, 8080, 3306, 6379]
+        check: port_scan
+        timeout: 3
+
+  # ── Latency / Performance Tests ───────────────────────────────────────────
+  latency:
+    tests:
+      - name: "Ping 8.8.8.8 — avg latency under 100ms"
+        host: "8.8.8.8"
+        max_avg_ms: 100
+        count: 5
+
+      - name: "Ping 1.1.1.1 — avg latency under 100ms"
+        host: "1.1.1.1"
+        max_avg_ms: 100
+        count: 5
+
+      - name: "HTTP response time example.com under 3s"
+        url: "https://example.com"
+        max_response_ms: 3000
+
+      - name: "HTTP response time httpbin under 5s"
+        url: "https://httpbin.org/get"
+        max_response_ms: 5000

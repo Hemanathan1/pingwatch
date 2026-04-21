@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "run_id": "20260421_060854",
+    "started_at": "2026-04-21T06:08:54.099252",
+    "config_file": "test_config.yaml",
+    "finished_at": "2026-04-21T06:09:00.136722",
+    "total": 5,
+    "passed": 2,
+    "failed": 3
+  },
+  "suites": [
+    {
+      "name": "tcp",
+      "duration_s": 6.037,
+      "total": 5,
+      "passed": 2,
+      "failed": 3,
+      "errors": 0,
+      "tests": [
+        {
+          "name": "Google DNS reachable on port 53",
+          "status": "FAIL",
+          "detail": "Connection timed out",
+          "host": "8.8.8.8",
+          "port": 53,
+          "latency_ms": null
+        },
+        {
+          "name": "Cloudflare DNS reachable on port 53",
+          "status": "FAIL",
+          "detail": "Connection timed out",
+          "host": "1.1.1.1",
+          "port": 53,
+          "latency_ms": null
+        },
+        {
+          "name": "HTTP port open on example.com",
+          "status": "PASS",
+          "detail": "Latency: 16.79ms",
+          "host": "example.com",
+          "port": 80,
+          "latency_ms": 16.79
+        },
+        {
+          "name": "HTTPS port open on example.com",
+          "status": "PASS",
+          "detail": "Latency: 17.94ms",
+          "host": "example.com",
+          "port": 443,
+          "latency_ms": 17.94
+        },
+        {
+          "name": "Should FAIL \u2014 unreachable host",
+          "status": "FAIL",
+          "detail": "Unexpectedly reachable \u2014 investigate!",
+          "host": "192.0.2.1",
+          "port": 80,
+          "latency_ms": 0.4
+        }
+      ]
+    }
+  ]
+}

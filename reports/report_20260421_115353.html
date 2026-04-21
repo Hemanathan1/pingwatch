@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NetTest Report — 20260421_115353</title>
+<style>
+  :root {
+    --pass: #16a34a; --fail: #dc2626; --error: #d97706;
+    --bg: #0f172a; --card: #1e293b; --border: #334155;
+    --text: #e2e8f0; --muted: #94a3b8; --accent: #3b82f6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); padding: 2rem; }
+  h1 { font-size: 1.8rem; color: var(--accent); margin-bottom: 0.25rem; }
+  .meta { color: var(--muted); font-size: 0.85rem; margin-bottom: 2rem; }
+  .summary { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+           padding: 1rem 1.5rem; min-width: 120px; text-align: center; }
+  .stat .num { font-size: 2rem; font-weight: 700; }
+  .stat .label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+  .pass-num { color: var(--pass); } .fail-num { color: var(--fail); }
+  .suite { background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+            margin-bottom: 1.5rem; overflow: hidden; }
+  .suite-header { padding: 0.75rem 1.25rem; background: #253347; display: flex;
+                   justify-content: space-between; align-items: center; }
+  .suite-name { font-weight: 700; font-size: 1rem; text-transform: uppercase;
+                 letter-spacing: 0.05em; color: var(--accent); }
+  .suite-stats { font-size: 0.8rem; color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; }
+  th { background: #1a2a3a; color: var(--muted); font-size: 0.75rem; font-weight: 600;
+        text-transform: uppercase; letter-spacing: 0.05em; padding: 0.5rem 1rem; text-align: left; }
+  td { padding: 0.6rem 1rem; font-size: 0.85rem; border-top: 1px solid var(--border); }
+  tr:hover td { background: rgba(59,130,246,0.05); }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 999px;
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; }
+  .PASS  { background: rgba(22,163,74,0.15);  color: var(--pass); }
+  .FAIL  { background: rgba(220,38,38,0.15);  color: var(--fail); }
+  .ERROR { background: rgba(217,119,6,0.15);  color: var(--error); }
+  .detail { color: var(--muted); max-width: 500px; word-break: break-word; }
+  footer { text-align: center; color: var(--muted); font-size: 0.75rem; margin-top: 2rem; }
+</style>
+</head>
+<body>
+<h1>🔍 NetTest Report</h1>
+<div class="meta">Run ID: 20260421_115353 &nbsp;|&nbsp; 2026-04-21T11:53:53.065011 &nbsp;|&nbsp; 20 tests across 4 suites</div>
+
+<div class="summary">
+  <div class="stat"><div class="num">20</div><div class="label">Total</div></div>
+  <div class="stat"><div class="num pass-num">17</div><div class="label">Passed</div></div>
+  <div class="stat"><div class="num fail-num">3</div><div class="label">Failed</div></div>
+  <div class="stat"><div class="num" style="color:var(--accent)">85.0%</div><div class="label">Pass Rate</div></div>
+</div>
+
+
+<div class="suite">
+  <div class="suite-header">
+    <span class="suite-name">tcp</span>
+    <span class="suite-stats">5 passed &nbsp;/&nbsp; 0 failed &nbsp;|&nbsp; 2.107s</span>
+  </div>
+  <table>
+    <thead><tr><th>Test</th><th>Status</th><th>Detail</th></tr></thead>
+    <tbody>
+        <tr>
+          <td>Google DNS reachable on port 53</td>
+          <td><span class="badge PASS">PASS</span></td>
+          <td class="detail">Latency: 50.56ms</td>
+        </tr>
+        <tr>
+          <td>Cloudflare DNS reachable on port 53</td>
+          <td><span class="badge PASS">PASS</span></td>
+          <td class="detail">Latency: 16.11ms</td>
+        </tr>
+        <tr>
+          <td>HTTP port open on example.com</td>
+          <td><span class="badge PASS">PASS</span></td>
+          <td class="detail">Latency: 31.85ms</td>
+        </tr>
+        <tr>
+          <td>HTTPS port open on example.com</td>
+          <td><span class="badge PASS">PASS</span></td>
+          <td class="detail">Latency: 4.68ms</td>
+        </tr>
+        <tr>
+          <td>Should FAIL â€” unreachable host</td>
+          <td><span class="badge PASS">PASS</span></td>
+          <td class="detail">Correctly unreachable (expected)</td>
+        </tr></tbody>
+  </table>
+</div>
+<div class="suite">
+  <div class="suite-header">
+    <span class="suite-name">http</span>
+    <span class="suite-stats">6 passed &nbsp;/&nbsp; 0 failed &nbsp;|&nbsp; 7.347s</span>
+  </div>
+  <table>
+    <thead><tr><th>Test</th><th>Status</th><th>Detail</th></tr></thead>
+    <tbody>
+        <tr>
+          <td>example.com returns HTTP 200</td>
+          <td><span class="badge PASS">PASS</span></td>
+          <td class="detail">42.68ms | HTTP 200</td>
+        </tr>
+        <tr>
+          <td>example.com HTTPS returns HTTP 200</td>
+          <td><span class="badge PASS">PASS</span></td>
+          <td class="detail">784.81ms | HTTP 200</td>
+        </tr>
+        <tr>
+          <td>Response contains expected keyword</td>
+          <td><span class="badge PASS">PASS</span></td>
+          <td class="detail">658.96ms | HTTP 200</td>
+        </tr>
+        <tr>
+          <td>httpbin GET returns 200</td>
+          <td><span class="badge PASS">PASS</span></td>
+          <td class="detail">1955.73ms | HTTP 200</td>
+        </tr>
+        <tr>
+          <td>httpbin returns valid JSON</td>
+          <td><span class="badge PASS">PASS</span></td>
+          <td class="detail">1740.37ms | HTTP 200</td>
+        </tr>
+        <tr>
+          <td>Non-existent path returns 404</td>
+          <td><span class="badge PASS">PASS</span></td>
+          <td class="detail">2161.23ms | HTTP 404</td>
+        </tr></tbody>
+  </table>
+</div>
+<div class="suite">
+  <div class="suite-header">
+    <span class="suite-name">security</span>
+    <span class="suite-stats">2 passed &nbsp;/&nbsp; 3 failed &nbsp;|&nbsp; 17.34s</span>
+  </div>
+  <table>
+    <thead><tr><th>Test</th><th>Status</th><th>Detail</th></tr></thead>
+    <tbody>
+        <tr>
+          <td>example.com HTTPS is valid (no SSL error)</td>
+          <td><span class="badge PASS">PASS</span></td>
+          <td class="detail">SSL valid — HTTP 200</td>
+        </tr>
+        <tr>
+          <td>HTTP to HTTPS redirect enforced on httpbin</td>
+          <td><span class="badge FAIL">FAIL</span></td>
+          <td class="detail">No HTTPS redirect — final URL: http://httpbin.org/</td>
+        </tr>
+        <tr>
+          <td>HSTS header present on example.com</td>
+          <td><span class="badge FAIL">FAIL</span></td>
+          <td class="detail">Strict-Transport-Security header missing</td>
+        </tr>
+        <tr>
+          <td>X-Content-Type-Options header check on httpbin</td>
+          <td><span class="badge FAIL">FAIL</span></td>
+          <td class="detail">X-Content-Type-Options header missing</td>
+        </tr>
+        <tr>
+          <td>Open port scan â€” common ports on scanme.nmap.org</td>
+          <td><span class="badge PASS">PASS</span></td>
+          <td class="detail">Open: [22, 80] | Closed/filtered: [443, 8080, 3306, 6379]</td>
+        </tr></tbody>
+  </table>
+</div>
+<div class="suite">
+  <div class="suite-header">
+    <span class="suite-name">latency</span>
+    <span class="suite-stats">4 passed &nbsp;/&nbsp; 0 failed &nbsp;|&nbsp; 11.096s</span>
+  </div>
+  <table>
+    <thead><tr><th>Test</th><th>Status</th><th>Detail</th></tr></thead>
+    <tbody>
+        <tr>
+          <td>Ping 8.8.8.8 â€” avg latency under 100ms</td>
+          <td><span class="badge PASS">PASS</span></td>
+          <td class="detail">Avg latency 77.0ms ≤ threshold 100ms</td>
+        </tr>
+        <tr>
+          <td>Ping 1.1.1.1 â€” avg latency under 100ms</td>
+          <td><span class="badge PASS">PASS</span></td>
+          <td class="detail">Avg latency 9.0ms ≤ threshold 100ms</td>
+        </tr>
+        <tr>
+          <td>HTTP response time example.com under 3s</td>
+          <td><span class="badge PASS">PASS</span></td>
+          <td class="detail">Response 780.84ms ≤ threshold 3000ms</td>
+        </tr>
+        <tr>
+          <td>HTTP response time httpbin under 5s</td>
+          <td><span class="badge PASS">PASS</span></td>
+          <td class="detail">Response 1795.41ms ≤ threshold 5000ms</td>
+        </tr></tbody>
+  </table>
+</div>
+
+<footer>Generated by NetTest &nbsp;|&nbsp; 2026-04-21T11:54:30.963039</footer>
+</body>
+</html>
