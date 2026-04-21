@@ -1,5 +1,5 @@
 """
-NetTest - Network Test Automation Framework
+PingWatch - Network Test Automation Framework
 Main test runner: loads config, executes all test suites, generates report.
 """
 
@@ -82,15 +82,17 @@ def run_all(config, suite_filter=None):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="NetTest — Network Test Automation Framework")
+    parser = argparse.ArgumentParser(description="PingWatch - Network Test Automation Framework")
     parser.add_argument("--config", default="test_config.yaml", help="Path to config file")
     parser.add_argument("--suite", nargs="*", choices=["tcp", "http", "security", "latency"],
                         help="Run specific suites only")
     parser.add_argument("--format", choices=["html", "json", "both"], default="both",
                         help="Output report format")
+    parser.add_argument("--threshold", type=int, default=None,
+                        help="Minimum pass rate %%. Exit with error if below this.")
     args = parser.parse_args()
 
-    print("\n🔍 NetTest — Network Test Automation Framework")
+    print("\n🔍 PingWatch - Network Test Automation Framework")
     print(f"   Config : {args.config}")
     print(f"   Suites : {args.suite or 'all'}")
     print(f"   Format : {args.format}")
@@ -98,6 +100,14 @@ def main():
     config = load_config(args.config)
     results = run_all(config, suite_filter=args.suite)
     generate_report(results, fmt=args.format)
+
+    if args.threshold is not None:
+        pass_rate = round(results["meta"]["passed"] / results["meta"]["total"] * 100, 1)
+        if pass_rate < args.threshold:
+            print(f"\n❌ THRESHOLD FAILED: Pass rate {pass_rate}% is below required {args.threshold}%")
+            exit(1)
+        else:
+            print(f"\n✅ THRESHOLD PASSED: Pass rate {pass_rate}% meets required {args.threshold}%")
 
     print(f"\n{'='*50}")
     print(f"  FINAL: {results['meta']['passed']}/{results['meta']['total']} tests passed")
