@@ -1,0 +1,185 @@
+{
+  "meta": {
+    "run_id": "20260421_122113",
+    "started_at": "2026-04-21T12:21:13.257277",
+    "config_file": "test_config.yaml",
+    "finished_at": "2026-04-21T12:21:52.495851",
+    "total": 20,
+    "passed": 16,
+    "failed": 4
+  },
+  "suites": [
+    {
+      "name": "tcp",
+      "duration_s": 2.1,
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "errors": 0,
+      "tests": [
+        {
+          "name": "Google DNS reachable on port 53",
+          "status": "PASS",
+          "detail": "Latency: 20.65ms",
+          "host": "8.8.8.8",
+          "port": 53,
+          "latency_ms": 20.65
+        },
+        {
+          "name": "Cloudflare DNS reachable on port 53",
+          "status": "PASS",
+          "detail": "Latency: 37.15ms",
+          "host": "1.1.1.1",
+          "port": 53,
+          "latency_ms": 37.15
+        },
+        {
+          "name": "HTTP port open on example.com",
+          "status": "PASS",
+          "detail": "Latency: 30.65ms",
+          "host": "example.com",
+          "port": 80,
+          "latency_ms": 30.65
+        },
+        {
+          "name": "HTTPS port open on example.com",
+          "status": "PASS",
+          "detail": "Latency: 5.29ms",
+          "host": "example.com",
+          "port": 443,
+          "latency_ms": 5.29
+        },
+        {
+          "name": "Should FAIL \u00e2\u20ac\u201d unreachable host",
+          "status": "PASS",
+          "detail": "Correctly unreachable (expected)",
+          "host": "192.0.2.1",
+          "port": 80,
+          "latency_ms": null
+        }
+      ]
+    },
+    {
+      "name": "http",
+      "duration_s": 8.488,
+      "total": 6,
+      "passed": 6,
+      "failed": 0,
+      "errors": 0,
+      "tests": [
+        {
+          "name": "example.com returns HTTP 200",
+          "status": "PASS",
+          "detail": "50.15ms | HTTP 200",
+          "url": "http://example.com",
+          "response_ms": 50.15
+        },
+        {
+          "name": "example.com HTTPS returns HTTP 200",
+          "status": "PASS",
+          "detail": "646.75ms | HTTP 200",
+          "url": "https://example.com",
+          "response_ms": 646.75
+        },
+        {
+          "name": "Response contains expected keyword",
+          "status": "PASS",
+          "detail": "644.89ms | HTTP 200",
+          "url": "https://example.com",
+          "response_ms": 644.89
+        },
+        {
+          "name": "httpbin GET returns 200",
+          "status": "PASS",
+          "detail": "1823.24ms | HTTP 200",
+          "url": "https://httpbin.org/get",
+          "response_ms": 1823.24
+        },
+        {
+          "name": "httpbin returns valid JSON",
+          "status": "PASS",
+          "detail": "3241.78ms | HTTP 200",
+          "url": "https://httpbin.org/json",
+          "response_ms": 3241.78
+        },
+        {
+          "name": "Non-existent path returns 404",
+          "status": "PASS",
+          "detail": "2077.5ms | HTTP 404",
+          "url": "https://httpbin.org/status/404",
+          "response_ms": 2077.5
+        }
+      ]
+    },
+    {
+      "name": "security",
+      "duration_s": 16.885,
+      "total": 5,
+      "passed": 2,
+      "failed": 3,
+      "errors": 0,
+      "tests": [
+        {
+          "name": "example.com HTTPS is valid (no SSL error)",
+          "status": "PASS",
+          "detail": "SSL valid \u2014 HTTP 200",
+          "check_type": "ssl_valid"
+        },
+        {
+          "name": "HTTP to HTTPS redirect enforced on httpbin",
+          "status": "FAIL",
+          "detail": "No HTTPS redirect \u2014 final URL: http://httpbin.org/",
+          "check_type": "https_redirect"
+        },
+        {
+          "name": "HSTS header present on example.com",
+          "status": "FAIL",
+          "detail": "Strict-Transport-Security header missing",
+          "check_type": "hsts_header"
+        },
+        {
+          "name": "X-Content-Type-Options header check on httpbin",
+          "status": "FAIL",
+          "detail": "X-Content-Type-Options header missing",
+          "check_type": "x_content_type"
+        },
+        {
+          "name": "Open port scan \u00e2\u20ac\u201d common ports on scanme.nmap.org",
+          "status": "PASS",
+          "detail": "Open: [22, 80] | Closed/filtered: [443, 8080, 3306, 6379]",
+          "check_type": "port_scan"
+        }
+      ]
+    },
+    {
+      "name": "latency",
+      "duration_s": 11.725,
+      "total": 4,
+      "passed": 3,
+      "failed": 1,
+      "errors": 0,
+      "tests": [
+        {
+          "name": "Ping 8.8.8.8 \u00e2\u20ac\u201d avg latency under 100ms",
+          "status": "FAIL",
+          "detail": "Avg latency 101.0ms > threshold 100ms"
+        },
+        {
+          "name": "Ping 1.1.1.1 \u00e2\u20ac\u201d avg latency under 100ms",
+          "status": "PASS",
+          "detail": "Avg latency 7.0ms \u2264 threshold 100ms"
+        },
+        {
+          "name": "HTTP response time example.com under 3s",
+          "status": "PASS",
+          "detail": "Response 872.09ms \u2264 threshold 3000ms"
+        },
+        {
+          "name": "HTTP response time httpbin under 5s",
+          "status": "PASS",
+          "detail": "Response 2321.57ms \u2264 threshold 5000ms"
+        }
+      ]
+    }
+  ]
+}
